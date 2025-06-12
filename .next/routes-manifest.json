@@ -1,0 +1,103 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/dashboard",
+      "regex": "^/dashboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard(?:/)?$"
+    },
+    {
+      "page": "/dashboard/ai",
+      "regex": "^/dashboard/ai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/ai(?:/)?$"
+    },
+    {
+      "page": "/dashboard/analytics",
+      "regex": "^/dashboard/analytics(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/analytics(?:/)?$"
+    },
+    {
+      "page": "/dashboard/calendar",
+      "regex": "^/dashboard/calendar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/calendar(?:/)?$"
+    },
+    {
+      "page": "/dashboard/chat-history",
+      "regex": "^/dashboard/chat\\-history(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/chat\\-history(?:/)?$"
+    },
+    {
+      "page": "/dashboard/corpus",
+      "regex": "^/dashboard/corpus(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/corpus(?:/)?$"
+    },
+    {
+      "page": "/dashboard/settings",
+      "regex": "^/dashboard/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/settings(?:/)?$"
+    },
+    {
+      "page": "/dashboard/support",
+      "regex": "^/dashboard/support(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/support(?:/)?$"
+    },
+    {
+      "page": "/dashboard/upgrade",
+      "regex": "^/dashboard/upgrade(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/dashboard/upgrade(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  },
+  "rewrites": []
+}

@@ -43,11 +43,7 @@ type Message = {
   timestamp: Date;
 };
 
-export default function DashboardHome({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardHome() {
   const [prompt, setPrompt] = useState("");
   const [copiedMap, setCopiedMap] = useState<{ [key: string]: boolean }>({});
   const [likedMap, setLikedMap] = useState<{ [key: string]: boolean }>({});

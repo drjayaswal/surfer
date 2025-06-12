@@ -1,0 +1,13 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/dashboard/ai/page": "/dashboard/ai",
+  "/dashboard/analytics/page": "/dashboard/analytics",
+  "/dashboard/calendar/page": "/dashboard/calendar",
+  "/dashboard/support/page": "/dashboard/support",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/corpus/page": "/dashboard/corpus",
+  "/dashboard/upgrade/page": "/dashboard/upgrade",
+  "/dashboard/settings/page": "/dashboard/settings",
+  "/dashboard/chat-history/page": "/dashboard/chat-history"
+}
