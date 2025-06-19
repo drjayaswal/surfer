@@ -12,31 +12,10 @@ interface NavigationProps {
 
 const navLinks = [
   { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#about", label: "About" },
-];
-
-const ctaButtons: {
-  label: string;
-  props: {
-    variant?:
-      | "outline"
-      | "link"
-      | "default"
-      | "destructive"
-      | "secondary"
-      | "ghost";
-    className: string;
-  };
-}[] = [
-  {
-    label: "Login",
-    props: {
-      variant: "default",
-      className:
-        "bg-gradient-to-br from-sky-500/60 via-sky-600/60 to-sky-700/60 text-white px-6 py-2 rounded-[10px] shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 font-semibold hover:bg-sky-600",
-    },
-  },
+  { href: "/upgrade", label: "Upgrade" },
+  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/auth/login", label: "Login" },
 ];
 export default function Navigation({ scrollY }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,9 +32,6 @@ export default function Navigation({ scrollY }: NavigationProps) {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-              <Waves className="h-5 w-5 text-sky-500" />
-            </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-sky-200 via-sky-400 to-sky-600 bg-clip-text text-transparent">
               SURFER
             </span>
@@ -72,12 +48,6 @@ export default function Navigation({ scrollY }: NavigationProps) {
                 {label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-600 transition-all duration-200 group-hover:w-full"></span>
               </Link>
-            ))}
-
-            {ctaButtons.map(({ label, props }) => (
-              <Button key={label} {...props}>
-                {label}
-              </Button>
             ))}
           </div>
 
@@ -122,14 +92,6 @@ export default function Navigation({ scrollY }: NavigationProps) {
                   {label}
                 </Link>
               ))}
-
-              <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
-                {ctaButtons.map(({ label, props }) => (
-                  <Button key={label} {...props}>
-                    {label}
-                  </Button>
-                ))}
-              </div>
             </div>
           </motion.div>
         )}

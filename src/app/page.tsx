@@ -107,12 +107,12 @@ export default function LandingPage() {
                 <span className="text-gray-800">of AI Innovation</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed text-center">
-                <span className="italic text-black">Intuitive</span>{" "}
+                <span className="italic font-light text-black">Intuitive</span>{" "}
                 <span className="text-black font-bold">Smart</span>{" "}
+                <span className="text-black font-medium">Effortless</span>{" "}
                 <span className="text-black font-semibold tracking-wide animate-pulse">
                   Fast
                 </span>{" "}
-                <span className="text-black font-medium">Effortless</span>{" "}
                 <span className="text-black font-light">Productive</span>
               </p>{" "}
             </motion.div>
@@ -190,7 +190,6 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }
