@@ -228,7 +228,7 @@ export default function SettingsPage() {
                       Update your personal information and profile settings.
                     </CardDescription>
                   </CardHeader>
-                  <Separator className="bg-sky-600" />
+                  <Separator className="bg-[#0f67fe]" />
                   <CardContent className="space-y-6">
                     <div className="flex items-center gap-6">
                       <Avatar className="h-20 w-20">
@@ -240,7 +240,7 @@ export default function SettingsPage() {
                       <div className="space-y-2">
                         <Button
                           variant="outline"
-                          className="gap-2 hover:bg-sky-600/10 hover:text-sky-600 border-0 shadow-none"
+                          className="gap-2 hover:bg-[#0f67fe]/10 hover:text-sky-600 border-0 shadow-none"
                         >
                           <Camera className="h-4 w-4" />
                           Change Avatar
@@ -314,7 +314,7 @@ export default function SettingsPage() {
                       Manage your password and security settings.
                     </CardDescription>
                   </CardHeader>
-                  <Separator className="bg-sky-600" />
+                  <Separator className="bg-[#0f67fe]" />
                   <CardContent className="space-y-6">
                     <div className="space-y-4">
                       <div className="space-y-2">
@@ -387,7 +387,7 @@ export default function SettingsPage() {
                             </p>
                           </div>
                         </div>
-                        <Switch className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20" />
+                        <Switch className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20" />
                       </div>
                     </div>
 
@@ -419,7 +419,7 @@ export default function SettingsPage() {
                           </div>
                           <Button
                             variant="outline"
-                            className="gap-2 hover:bg-sky-600/10 hover:text-sky-600 border-0 shadow-none"
+                            className="gap-2 hover:bg-[#0f67fe]/10 hover:text-sky-600 border-0 shadow-none"
                           >
                             <Key className="h-4 w-4" />
                             Regenerate
@@ -443,7 +443,7 @@ export default function SettingsPage() {
                       updates.
                     </CardDescription>
                   </CardHeader>
-                  <Separator className="bg-sky-600" />
+                  <Separator className="bg-[#0f67fe]" />
                   <CardContent className="space-y-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
@@ -458,7 +458,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={notifications.emailNotifications}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setNotifications({
                               ...notifications,
@@ -480,7 +480,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={notifications.pushNotifications}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setNotifications({
                               ...notifications,
@@ -502,7 +502,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={notifications.weeklyReports}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setNotifications({
                               ...notifications,
@@ -524,7 +524,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={notifications.securityAlerts}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setNotifications({
                               ...notifications,
@@ -546,7 +546,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={notifications.usageAlerts}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setNotifications({
                               ...notifications,
@@ -569,7 +569,7 @@ export default function SettingsPage() {
                       Control your privacy and data sharing preferences.
                     </CardDescription>
                   </CardHeader>
-                  <Separator className="bg-sky-600" />
+                  <Separator className="bg-[#0f67fe]" />
                   <CardContent className="space-y-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
@@ -584,7 +584,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={privacy.dataSharing}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setPrivacy({ ...privacy, dataSharing: checked })
                           }
@@ -603,7 +603,7 @@ export default function SettingsPage() {
                         </div>
                         <Switch
                           checked={privacy.analyticsTracking}
-                          className="data-[state=checked]:bg-sky-600 data-[state=unchecked]:bg-sky-600/20"
+                          className="data-[state=checked]:bg-[#0f67fe] data-[state=unchecked]:bg-[#0f67fe]/20"
                           onCheckedChange={(checked) =>
                             setPrivacy({
                               ...privacy,
@@ -664,7 +664,7 @@ export default function SettingsPage() {
                       View your recent account activity and security events.
                     </CardDescription>
                   </CardHeader>
-                  <Separator className="bg-sky-600" />
+                  <Separator className="bg-[#0f67fe]" />
                   <CardContent className="space-y-0">
                     {activityLogs.map((log) => (
                       <div

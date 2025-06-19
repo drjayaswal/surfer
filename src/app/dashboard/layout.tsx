@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/dashboard/sidebar";
-import SidebarToggleButton from "@/components/dashboard/sidebarToggleButton";
+import { AppSidebar } from "@/components/sidebar";
+import SidebarToggleButton from "@/components/sidebarToggleButton";
 
 export default function DashboardLayout({
   children,

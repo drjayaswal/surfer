@@ -1,103 +1,196 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ArrowRight,
+  Brain,
+  Zap,
+  Shield,
+  Users,
+  ChevronDown,
+  Bot,
+  MessageCircle,
+  TrendingUp,
+  Waves,
+} from "lucide-react";
+import Link from "next/link";
+import WaveBackground from "@/components/wave-background";
+import Navigation from "@/components/navigation";
+import EnhancedSearchBar from "@/components/searchBar";
+import SiriWave from "@/components/ui/Wave";
+
+export default function LandingPage() {
+  const [scrollY, setScrollY] = useState(0);
+  const [isWaveActive, setIsWaveActive] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Activate wave animation periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsWaveActive(true);
+      setTimeout(() => setIsWaveActive(false), 3000);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const features = [
+    {
+      icon: <Brain className="h-8 w-8" />,
+      title: "Advanced AI Intelligence",
+      description:
+        "Powered by cutting-edge AI models for superior understanding and responses",
+    },
+    {
+      icon: <Zap className="h-8 w-8" />,
+      title: "Lightning Fast",
+      description:
+        "Get instant responses with our optimized AI processing pipeline",
+    },
+    {
+      icon: <Shield className="h-8 w-8" />,
+      title: "Secure & Private",
+      description:
+        "Your data is protected with enterprise-grade security measures",
+    },
+    {
+      icon: <Users className="h-8 w-8" />,
+      title: "Team Collaboration",
+      description: "Work together seamlessly with shared AI workspaces",
+    },
+  ];
+
+  const stats = [
+    { number: "10M+", label: "Queries Processed" },
+    { number: "50K+", label: "Active Users" },
+    { number: "99.9%", label: "Uptime" },
+    { number: "24/7", label: "Support" },
+  ];
+
+  const handleSearch = (query: string) => {
+    console.log("Searching for:", query);
+    // Redirect to dashboard with search query
+    window.location.href = `/dashboard/ai?q=${encodeURIComponent(query)}`;
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-full bg-white  relative overflow-visible">
+      {/* Background Wave Animation */}
+      <WaveBackground opacity={0.1} />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Navigation */}
+      <Navigation scrollY={scrollY} />
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="mb-8"
+            >
+              <h1 className="text-7xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-sky-200 via-sky-400 to-sky-600 bg-clip-text text-transparent">
+                  Surf the <span className="italic">Wave</span>
+                </span>
+                <br />
+                <span className="text-gray-800">of AI Innovation</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed text-center">
+                <span className="italic text-black">Intuitive</span>{" "}
+                <span className="text-black font-bold">Smart</span>{" "}
+                <span className="text-black font-semibold tracking-wide animate-pulse">
+                  Fast
+                </span>{" "}
+                <span className="text-black font-medium">Effortless</span>{" "}
+                <span className="text-black font-light">Productive</span>
+              </p>{" "}
+            </motion.div>
+
+            {/* Enhanced Search Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-8"
+            >
+              <EnhancedSearchBar onSearch={handleSearch} />
+            </motion.div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        {/* Decorative Wave Animation */}
+        <div className="absolute bottom-0 left-0 right-0 h-20">
+          <SiriWave
+            isWaveMode={true}
+            height={120}
+            colors={[
+              "rgba(255,255,255,0.1)",
+              "rgba(255,255,255,0.2)",
+              "rgba(255,255,255,0.15)",
+            ]}
+            style="smooth"
+            amplitude={30}
+            frequency={0.01}
+            speed={0.5}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </div>
+      </section>
+
+      {/* CTA Section with Wave Animation */}
+      <section className="py-20  relative overflow-hidden">
+        {/* Background Wave Animation */}
+        <div className="absolute inset-0">
+          <SiriWave
+            isWaveMode={true}
+            height={120}
+            colors={[
+              "rgba(255,255,255,0.1)",
+              "rgba(255,255,255,0.2)",
+              "rgba(255,255,255,0.15)",
+            ]}
+            style="smooth"
+            amplitude={30}
+            frequency={0.01}
+            speed={0.5}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-sky-200 via-sky-400 to-sky-600 bg-clip-text text-transparent mb-6">
+              Ready to Surf the AI Wave?
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className="bg-transparent text-sky-600 hover:bg-transparent px-8 py-4 text-lg rounded-2xl hover:shadow-xl shadow-none transition-all duration-300 hover:scale-102"
+                >
+                  <TrendingUp className="h-6 w-6 mr-3" />
+                  Start Your Journey
+                  <ArrowRight className="h-6 w-6 ml-3" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
     </div>
   );
 }

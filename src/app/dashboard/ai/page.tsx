@@ -1,6 +1,4 @@
 "use client";
-
-import type React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 declare global {
   interface Window {
@@ -10,10 +8,10 @@ declare global {
   }
 }
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Sparkles,
   User,
@@ -28,12 +26,12 @@ import {
   Share2,
   EarIcon,
   SendHorizonal,
-  FileCheck,
   CheckSquare,
   Waves,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 
 type Message = {
@@ -55,9 +53,30 @@ export default function DashboardHome() {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [hasProcessedUrlQuery, setHasProcessedUrlQuery] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // Handle URL query parameters on component mount
+  useEffect(() => {
+    const urlQuery = searchParams.get("q") || searchParams.get("query");
+
+    if (urlQuery && !hasProcessedUrlQuery) {
+      setPrompt(urlQuery);
+      setHasProcessedUrlQuery(true);
+
+      handleSendMessage(urlQuery);
+      // Clear the URL parameter after processing
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete("q");
+      newUrl.searchParams.delete("query");
+      router.replace(newUrl.pathname, { scroll: false });
+      handleSendMessage(prompt);
+    }
+  }, [searchParams, hasProcessedUrlQuery, router]);
 
   const examples = [
     {
@@ -107,7 +126,7 @@ export default function DashboardHome() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [prompt]);
+  }, []);
 
   // Get greeting based on time of day
   const getGreeting = () => {
@@ -174,46 +193,50 @@ export default function DashboardHome() {
     }
   };
 
-  // Handle sending a message
-  const handleSendMessage = async () => {
-    if (!prompt.trim()) return;
+  // Enhanced handle sending a message with optional query parameter
+  const handleSendMessage = useCallback(
+    async (queryText?: string) => {
+      const messageText = queryText || prompt;
+      if (!messageText.trim()) return;
 
-    if (isListening) {
-      stopVoiceRecognition();
-    }
+      if (isListening) {
+        stopVoiceRecognition();
+      }
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: prompt,
-      timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setPrompt("");
-    setIsLoading(true);
-
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: generateMockResponse(prompt),
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        role: "user",
+        content: messageText,
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, aiResponse]);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      setMessages((prev) => [...prev, userMessage]);
+      setPrompt("");
+      setIsLoading(true);
+
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
+
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          role: "assistant",
+          content: generateMockResponse(messageText),
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, aiResponse]);
+      } catch (error) {
+        console.error("Error sending message:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [prompt, isListening]
+  );
 
   // Generate a mock response
   const generateMockResponse = (prompt: string): string => {
@@ -274,7 +297,7 @@ export default function DashboardHome() {
                   <h1 className="text-4xl md:text-5xl font-medium mb-4 text-gray-800">
                     {getGreeting()},{" "}
                     <span className="bg-gradient-to-tr from-sky-400 via-sky-500 to-sky-800 bg-clip-text text-transparent font-bold animate-gradient-x text-shadow-lg">
-                      Jason
+                      Surfer
                     </span>
                   </h1>
                   <h2 className="text-2xl md:text-3xl font-medium text-gray-600">
@@ -318,12 +341,6 @@ export default function DashboardHome() {
                       )}
                     >
                       <Avatar className="h-8 w-8 flex-shrink-0 mt-1">
-                        {/* <AvatarImage
-                          src={
-                            isUser ? "/user-avatar.jpg" : "/xegality-logo.png"
-                          }
-                          alt={isUser ? "User" : "Assistant"}
-                        /> */}
                         <AvatarFallback
                           className={cn(
                             "text-xs font-medium p-[6px]",
@@ -484,7 +501,6 @@ export default function DashboardHome() {
                 {isLoading && (
                   <div className="flex gap-3 items-center">
                     <Avatar className="h-8 w-8 flex-shrink-0 mt-1">
-                      <AvatarImage src="/placeholder.svg?height=32&width=32" />
                       <AvatarFallback className="text-xs font-medium p-[6px] bg-sky-500/10 text-sky-500">
                         <Waves />
                       </AvatarFallback>
@@ -550,7 +566,7 @@ export default function DashboardHome() {
 
                 {/* Send Button */}
                 <Button
-                  onClick={handleSendMessage}
+                  onClick={() => handleSendMessage()}
                   disabled={!prompt.trim() || isLoading}
                   className={cn(
                     "h-10 w-10 p-0 rounded-xl transition-all duration-300 ease-out",
