@@ -1,31 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Waves } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
-interface NavigationProps {
-  scrollY: number;
-}
-
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "/upgrade", label: "Upgrade" },
+  { href: "/dashboard/ai", label: "SurferAI" },
+  { href: "/dashboard/upgrade", label: "Upgrade" },
   { href: "/contact", label: "Contact" },
-  { href: "/about", label: "About" },
-  { href: "/auth/login", label: "Login" },
+  { href: "/login", label: "Login" },
 ];
-export default function Navigation({ scrollY }: NavigationProps) {
+export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (scrollY > 100 && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, [scrollY, isMenuOpen]);
-
   return (
     <nav className="fixed top-0 w-full bg-white/10 z-50 transition-all duration-300 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,13 +40,14 @@ export default function Navigation({ scrollY }: NavigationProps) {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sky-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             <motion.div
               animate={{ rotate: isMenuOpen ? 180 : 0 }}
               transition={{ duration: 0.2 }}
+              className="focus-visible:ring-0"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -70,7 +58,6 @@ export default function Navigation({ scrollY }: NavigationProps) {
           </button>
         </div>
       </div>
-
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
@@ -79,14 +66,14 @@ export default function Navigation({ scrollY }: NavigationProps) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200"
+            className="md:hidden bg-white/50 backdrop-blur-xl border-t border-gray-200 shadow-md rounded-b-4xl"
           >
-            <div className="px-4 py-4 space-y-4">
+            <div className="px-6 py-6 space-y-3">
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={label}
                   href={href}
-                  className="block text-gray-600 hover:text-sky-600 py-2 transition-colors"
+                  className="block text-sky-500 active:bg-sky-600/10 font-medium text-xl rounded-md px-5 py-2 transition-all duration-200 hover:text-sky-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {label}
@@ -95,7 +82,7 @@ export default function Navigation({ scrollY }: NavigationProps) {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>{" "}
     </nav>
   );
 }

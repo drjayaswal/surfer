@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/footer";
+import WaveBackground from "@/components/waveBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Surfer — Ride the Wave of AI Innovation",
+  title: "Surf the Wave of AI",
   description:
     "Surfer is your intelligent AI companion for work, research, and creativity. Ask anything, explore insights, and unlock new possibilities — all in one sleek, fast interface.",
   keywords: [
@@ -66,6 +68,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="absolute inset-0 z-0">
+          <WaveBackground opacity={0.1} />
+        </div>
+
         {children}
       </body>
     </html>

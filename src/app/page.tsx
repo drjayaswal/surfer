@@ -3,33 +3,22 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import {
-  ArrowRight,
-  Brain,
-  Zap,
-  Shield,
-  Users,
-  ChevronDown,
-  Bot,
-  MessageCircle,
-  TrendingUp,
-  Waves,
-} from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
-import WaveBackground from "@/components/wave-background";
+import WaveBackground from "@/components/waveBackground";
 import Navigation from "@/components/navigation";
-import EnhancedSearchBar from "@/components/searchBar";
-import SiriWave from "@/components/ui/Wave";
+import PremiumSearchBar from "@/components/searchBar";
+import InteractiveAIPlayground from "@/components/playground";
+import Footer from "@/components/footer";
 
-export default function LandingPage() {
-  const [scrollY, setScrollY] = useState(0);
+export default function Home() {
   const [isWaveActive, setIsWaveActive] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Update time every second
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   // Activate wave animation periodically
@@ -42,39 +31,6 @@ export default function LandingPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const features = [
-    {
-      icon: <Brain className="h-8 w-8" />,
-      title: "Advanced AI Intelligence",
-      description:
-        "Powered by cutting-edge AI models for superior understanding and responses",
-    },
-    {
-      icon: <Zap className="h-8 w-8" />,
-      title: "Lightning Fast",
-      description:
-        "Get instant responses with our optimized AI processing pipeline",
-    },
-    {
-      icon: <Shield className="h-8 w-8" />,
-      title: "Secure & Private",
-      description:
-        "Your data is protected with enterprise-grade security measures",
-    },
-    {
-      icon: <Users className="h-8 w-8" />,
-      title: "Team Collaboration",
-      description: "Work together seamlessly with shared AI workspaces",
-    },
-  ];
-
-  const stats = [
-    { number: "10M+", label: "Queries Processed" },
-    { number: "50K+", label: "Active Users" },
-    { number: "99.9%", label: "Uptime" },
-    { number: "24/7", label: "Support" },
-  ];
-
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
     // Redirect to dashboard with search query
@@ -82,14 +38,9 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-full bg-white  relative overflow-visible">
-      {/* Background Wave Animation */}
+    <div className="min-h-full bg-white relative overflow-visible">
       <WaveBackground opacity={0.1} />
-
-      {/* Navigation */}
-      <Navigation scrollY={scrollY} />
-
-      {/* Hero Section */}
+      <Navigation />
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
@@ -106,66 +57,19 @@ export default function LandingPage() {
                 <br />
                 <span className="text-gray-800">of AI Innovation</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed text-center">
-                <span className="italic font-light text-black">Intuitive</span>{" "}
-                <span className="text-black font-bold">Smart</span>{" "}
-                <span className="text-black font-medium">Effortless</span>{" "}
-                <span className="text-black font-semibold tracking-wide animate-pulse">
-                  Fast
-                </span>{" "}
-                <span className="text-black font-light">Productive</span>
-              </p>{" "}
             </motion.div>
-
-            {/* Enhanced Search Bar */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-8"
             >
-              <EnhancedSearchBar onSearch={handleSearch} />
+              <PremiumSearchBar onSearch={handleSearch} />
             </motion.div>
           </div>
         </div>
-
-        {/* Decorative Wave Animation */}
-        <div className="absolute bottom-0 left-0 right-0 h-20">
-          <SiriWave
-            isWaveMode={true}
-            height={120}
-            colors={[
-              "rgba(255,255,255,0.1)",
-              "rgba(255,255,255,0.2)",
-              "rgba(255,255,255,0.15)",
-            ]}
-            style="smooth"
-            amplitude={30}
-            frequency={0.01}
-            speed={0.5}
-          />
-        </div>
       </section>
-
-      {/* CTA Section with Wave Animation */}
-      <section className="py-20  relative overflow-hidden">
-        {/* Background Wave Animation */}
-        <div className="absolute inset-0">
-          <SiriWave
-            isWaveMode={true}
-            height={120}
-            colors={[
-              "rgba(255,255,255,0.1)",
-              "rgba(255,255,255,0.2)",
-              "rgba(255,255,255,0.15)",
-            ]}
-            style="smooth"
-            amplitude={30}
-            frequency={0.01}
-            speed={0.5}
-          />
-        </div>
-
+      <section className="py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -179,17 +83,22 @@ export default function LandingPage() {
               <Link href="/dashboard">
                 <Button
                   size="lg"
-                  className="bg-transparent text-sky-600 hover:bg-transparent px-8 py-4 text-lg rounded-2xl hover:shadow-xl shadow-none transition-all duration-300 hover:scale-102"
+                  className="bg-transparent  bg-gradient-to-r from-sky-300 via-sky-400 to-sky-500 bg-clip-text text-transparent px-1 py-5 text-xl shadow-none"
                 >
-                  <TrendingUp className="h-6 w-6 mr-3" />
-                  Start Your Journey
-                  <ArrowRight className="h-6 w-6 ml-3" />
+                  Try Surfer Playground
+                  <ArrowDown className="h-6 w-6 text-sky-500 animate-bounce" />
                 </Button>
               </Link>
             </div>
           </motion.div>
         </div>
       </section>
+      <section className="pb-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <InteractiveAIPlayground />
+        </div>
+      </section>
+      <Footer />
     </div>
   );
 }

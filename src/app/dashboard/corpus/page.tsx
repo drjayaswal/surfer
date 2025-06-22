@@ -359,7 +359,7 @@ export default function CorpusPage() {
         {/* Main Content */}
         <div className="flex-1 overflow-hidden flex">
           {/* Sidebar */}
-          <div className="w-64 border-r border-t border-sky-600  p-4 overflow-y-auto">
+          <div className="w-64 border-r border-t border-sky-400/20  p-4 overflow-y-auto">
             <div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -432,13 +432,13 @@ export default function CorpusPage() {
           {/* Content Area */}
           <div className="flex-1 overflow-hidden flex flex-col">
             {/* Search and Filter Bar */}
-            <div className="p-4 border-b border-t border-dotted border-sky-600 bg-white">
+            <div className="p-4 bg-white">
               <div className="flex items-center gap-3">
                 <div className="relative flex-1">
                   <Search className="absolute left-[10px] top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     placeholder="Search files by name or tag..."
-                    className="pl-9 border border-sky-200 focus-visible:rounded-4xl focus-visible:ring-0 focus-visible:border-sky-600 transition-all duration-500"
+                    className="pl-9 border border-sky-200 focus-visible:rounded-4xl focus-visible:ring-0 focus-visible:border-sky-400 transition-all duration-500"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -448,7 +448,7 @@ export default function CorpusPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-2 focus-visible:ring-0 text-gray-600 hover:bg-sky-600/10 hover:border-sky-500 hover:text-sky-600"
+                      className="gap-2 focus-visible:ring-0 text-gray-600 hover:bg-sky-600/10 border-0 hover:text-sky-600"
                     >
                       <Filter className="h-4 w-4" />
                     </Button>

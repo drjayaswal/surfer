@@ -7,12 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Search,
-  Sparkles,
   ArrowRight,
   TrendingUp,
   Mic,
   Send,
-  Zap,
   Brain,
   MessageSquare,
   Code,
@@ -22,7 +20,6 @@ import {
   Globe,
 } from "lucide-react";
 import SiriWave from "./ui/Wave";
-import { useSearchParams } from "next/navigation";
 
 interface SearchSuggestion {
   id: string;
@@ -38,7 +35,7 @@ interface PremiumSearchBarProps {
   className?: string;
 }
 
-export default function PremiumSearchBar({
+export default function SearchBar({
   onSearch,
   placeholder = "Ask me anything...",
   className = "",
@@ -115,8 +112,6 @@ export default function PremiumSearchBar({
     },
   ];
 
-
-  // Enhanced filtering with fuzzy search
   useEffect(() => {
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -127,7 +122,6 @@ export default function PremiumSearchBar({
       });
       setFilteredSuggestions(filtered.slice(0, 6));
     } else {
-      // Show categorized suggestions when no query
       const categorized = [
         ...suggestions.filter((s) => s.category === "trending").slice(0, 2),
         ...suggestions.filter((s) => s.category === "popular").slice(0, 2),
@@ -138,7 +132,6 @@ export default function PremiumSearchBar({
     setSelectedIndex(-1);
   }, [searchQuery]);
 
-  // Typing indicator
   useEffect(() => {
     if (searchQuery) {
       setIsTyping(true);
@@ -159,7 +152,6 @@ export default function PremiumSearchBar({
     };
   }, [searchQuery]);
 
-  // Enhanced keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!showSuggestions) return;
@@ -204,7 +196,6 @@ export default function PremiumSearchBar({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  // Enhanced voice recognition
   const toggleVoiceRecognition = () => {
     if (!isListening) {
       startVoiceRecognition();
@@ -289,7 +280,6 @@ export default function PremiumSearchBar({
 
   return (
     <div className={`relative max-w-3xl mx-auto ${className}`}>
-      {/* Main Search Container */}
       <motion.div
         className="relative"
         animate={{
@@ -297,16 +287,16 @@ export default function PremiumSearchBar({
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
-        {/* Glow Effect */}
         <div
           className={`absolute inset-0 rounded-3xl transition-all duration-300 ${
             isFocused ? "bg-purple-500/25 blur-xl scale-105" : "bg-transparent"
           }`}
         />
-
-        {/* Search Input Container */}
-        <div className={`relative bg-white/50 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-3xl transition-all duration-300 ${!isFocused && "shadow-sky-700/20"}`}>
-          {/* Search Icon */}
+        <div
+          className={`relative bg-white/50 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-3xl transition-all duration-300 ${
+            !isFocused && "shadow-sky-700/20"
+          }`}
+        >
           <div className="absolute left-6 top-1/2 -translate-y-1/2 z-10">
             <motion.div
               animate={{
@@ -319,7 +309,6 @@ export default function PremiumSearchBar({
             </motion.div>
           </div>
 
-          {/* Input Field */}
           <input
             ref={inputRef}
             type="text"
@@ -340,8 +329,6 @@ export default function PremiumSearchBar({
               }, 150);
             }}
           />
-
-          {/* Voice Wave Animation Overlay */}
           {isListening && (
             <div className="absolute left-16 right-40 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
               <SiriWave
@@ -353,7 +340,6 @@ export default function PremiumSearchBar({
               />
             </div>
           )}
-          {/* Action Buttons */}
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 z-10">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               {searchQuery.trim() ? (
@@ -411,8 +397,6 @@ export default function PremiumSearchBar({
           </div>
         </div>
       </motion.div>
-
-      {/* Enhanced Suggestions Dropdown */}
       <AnimatePresence>
         {showSuggestions && filteredSuggestions.length > 0 && (
           <motion.div
@@ -424,7 +408,6 @@ export default function PremiumSearchBar({
             className="absolute top-full left-0 right-0 mt-4 z-50"
           >
             <Card className="p-4 bg-white/40 backdrop-blur-md shadow-2xl border-0 rounded-3xl">
-              {/* Suggestions List */}
               <div className="space-y-2">
                 {filteredSuggestions.map((suggestion, index) => {
                   const categoryInfo = getCategoryInfo(suggestion.category);
@@ -441,9 +424,6 @@ export default function PremiumSearchBar({
                       }`}
                       onClick={() => handleSuggestionClick(suggestion)}
                     >
-                      {/* Icon */}
-
-                      {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <div
@@ -457,14 +437,10 @@ export default function PremiumSearchBar({
                           <ArrowRight className="h-5 w-5 text-black opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-1" />
                         </div>
                       </div>
-
-                      {/* Arrow */}
                     </motion.button>
                   );
                 })}
               </div>
-
-              {/* Footer */}
               <div>
                 <div className="flex items-center justify-between text-xs text-gray-400">
                   <span>
